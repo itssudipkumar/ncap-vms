@@ -1,10 +1,10 @@
 // server.js — NCAP VMS Express Server
 // ============================================================
 require('dotenv').config();
-const express    = require('express');
-const cors       = require('cors');
-const rateLimit  = require('express-rate-limit');
-const path       = require('path');
+const express = require('express');
+const cors = require('cors');
+const rateLimit = require('express-rate-limit');
+const path = require('path');
 
 const app = express();
 
@@ -34,9 +34,9 @@ const loginLimiter = rateLimit({
 // ============================================================
 // ROUTES
 // ============================================================
-app.use('/api/auth',     loginLimiter, require('./routes/auth'));
+app.use('/api/auth', loginLimiter, require('./routes/auth'));
 app.use('/api/visitors', require('./routes/visitors'));
-app.use('/api/admin',    require('./routes/admin'));
+app.use('/api/admin', require('./routes/admin'));
 
 // Health check — used by Railway/Render to confirm app is alive
 app.get('/health', (req, res) => {

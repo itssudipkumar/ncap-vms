@@ -44,7 +44,7 @@ function shakePinDots() {
 }
 
 function doLogin() {
-  const id   = document.getElementById('inp-userid').value.trim();
+  const id = document.getElementById('inp-userid').value.trim();
   const pass = document.getElementById('inp-pass').value;
   const user = USERS.find(u => u.id === id && u.pass === pass);
   if (!user) {
@@ -56,7 +56,7 @@ function doLogin() {
   currentUser = user;
   // persist session so user stays logged in across reloads (kiosk-style)
   try { localStorage.setItem('vms_currentUser', JSON.stringify({ id: user.id })); } catch (e) { console.warn('Failed to persist session', e); }
-  
+
   // Import pending self-check-ins from localStorage
   try {
     const pending = JSON.parse(localStorage.getItem('pendingCheckIns') || '[]');
@@ -68,7 +68,7 @@ function doLogin() {
   } catch (err) {
     console.error('Failed to import check-ins:', err);
   }
-  
+
   hideEl('login-error');
   document.getElementById('login-page').classList.add('hidden');
   document.getElementById('app-page').classList.remove('hidden');
@@ -82,7 +82,7 @@ function doLogout() {
   document.getElementById('inp-pass').value = '';
   document.getElementById('app-page').classList.add('hidden');
   document.getElementById('login-page').classList.remove('hidden');
-  try { localStorage.removeItem('vms_currentUser'); } catch (e) {}
+  try { localStorage.removeItem('vms_currentUser'); } catch (e) { }
   showView('dashboard');
 }
 

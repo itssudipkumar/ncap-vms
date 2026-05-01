@@ -1,9 +1,9 @@
 // routes/auth.js — Login endpoint
-const express  = require('express');
-const bcrypt   = require('bcryptjs');
-const jwt      = require('jsonwebtoken');
-const pool     = require('../db/pool');
-const router   = express.Router();
+const express = require('express');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const pool = require('../db/pool');
+const router = express.Router();
 
 // POST /api/auth/login
 // Body: { userId: "STF-042", passcode: "5678" }
@@ -50,8 +50,8 @@ router.post('/login', async (req, res) => {
       token,
       user: {
         userId: user.user_id,
-        name:   user.name,
-        role:   user.role,
+        name: user.name,
+        role: user.role,
       }
     });
 

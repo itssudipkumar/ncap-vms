@@ -1,9 +1,9 @@
 // routes/admin.js — User management + feature toggles (admin only)
 const express = require('express');
-const bcrypt  = require('bcryptjs');
-const pool    = require('../db/pool');
+const bcrypt = require('bcryptjs');
+const pool = require('../db/pool');
 const { requireAuth, requireAdmin } = require('../middleware/auth');
-const router  = express.Router();
+const router = express.Router();
 
 router.use(requireAuth, requireAdmin);
 
@@ -57,7 +57,7 @@ router.patch('/users/:userId', async (req, res) => {
 
   try {
     const updates = [];
-    const params  = [];
+    const params = [];
     let i = 1;
 
     if (passcode !== undefined) {
@@ -65,8 +65,8 @@ router.patch('/users/:userId', async (req, res) => {
       updates.push(`passcode = $${i++}`);
       params.push(await bcrypt.hash(String(passcode), 10));
     }
-    if (role)       { updates.push(`role = $${i++}`);      params.push(role); }
-    if (name)       { updates.push(`name = $${i++}`);      params.push(name.trim()); }
+    if (role) { updates.push(`role = $${i++}`); params.push(role); }
+    if (name) { updates.push(`name = $${i++}`); params.push(name.trim()); }
     if (isActive !== undefined) { updates.push(`is_active = $${i++}`); params.push(isActive); }
 
     if (!updates.length) return res.status(400).json({ error: 'Nothing to update' });

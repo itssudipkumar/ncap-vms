@@ -15,7 +15,7 @@ function getTodaySessionStart() {
 
 function isCurrentSession(visitor) {
   const start = getTodaySessionStart();
-  const end   = new Date(start.getTime() + 24 * 60 * 60 * 1000);
+  const end = new Date(start.getTime() + 24 * 60 * 60 * 1000);
   const entry = new Date(visitor.entryTimestamp);
   return entry >= start && entry < end;
 }
@@ -26,7 +26,7 @@ function canEdit(visitor) {
 }
 
 function esc(str) {
-  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 
 function showEl(id, text) {
@@ -47,7 +47,7 @@ function showToast(msg, type = '') {
   const t = document.getElementById('toast');
   if (!t) return;
   t.textContent = msg;
-  t.className   = 'toast' + (type ? ' ' + type : '');
+  t.className = 'toast' + (type ? ' ' + type : '');
   setTimeout(() => t.classList.add('show'), 10);
   if (toastTimeout) clearTimeout(toastTimeout);
   toastTimeout = setTimeout(() => t.classList.remove('show'), 3000);
@@ -63,7 +63,7 @@ function closeModalBackdrop(e, id) {
 }
 
 function initials(name) {
-  return name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0,2);
+  return name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2);
 }
 
 function toggleUserMenu() { /* placeholder for dropdown */ }

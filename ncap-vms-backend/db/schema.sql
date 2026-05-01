@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS users (
   user_id     VARCHAR(20) UNIQUE NOT NULL,   -- e.g. STF-042
   name        VARCHAR(100) NOT NULL,
   passcode    VARCHAR(255) NOT NULL,          -- bcrypt hashed
-  role        VARCHAR(10) NOT NULL DEFAULT 'staff' CHECK (role IN ('admin', 'staff')),
+  role        VARCHAR(10) NOT NULL DEFAULT 'staff' CHECK (role IN ('admin','staff')),
   is_active   BOOLEAN NOT NULL DEFAULT true,
   created_at  TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   updated_at  TIMESTAMPTZ NOT NULL DEFAULT NOW()
@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS visitors (
   dept             VARCHAR(150) NOT NULL,
   entry_timestamp  TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   exit_timestamp   TIMESTAMPTZ,
-  created_by       VARCHAR(20) NOT NULL REFERENCES users(user_id),
+  created_by       VARCHAR(20) REFERENCES users(user_id) ON DELETE SET NULL,
   session_date     DATE NOT NULL,             -- session start date (06:30 boundary)
   is_deleted       BOOLEAN NOT NULL DEFAULT false,
   created_at       TIMESTAMPTZ NOT NULL DEFAULT NOW(),
@@ -34,10 +34,10 @@ CREATE TABLE IF NOT EXISTS visitors (
 
 -- ===== FEATURES TABLE =====
 CREATE TABLE IF NOT EXISTS features (
-  key         VARCHAR(50) PRIMARY KEY,
-  enabled     BOOLEAN NOT NULL DEFAULT true,
-  label       VARCHAR(100) NOT NULL,
-  description VARCHAR(200)
+  feature_key  VARCHAR(50) PRIMARY KEY,
+  enabled      BOOLEAN NOT NULL DEFAULT true,
+  label        VARCHAR(100) NOT NULL,
+  description  VARCHAR(200)
 );
 
 -- ===== AUDIT LOG TABLE =====
@@ -66,20 +66,20 @@ CREATE INDEX IF NOT EXISTS idx_visitors_status       ON visitors(exit_timestamp)
 -- ============================================================
 INSERT INTO users (user_id, name, passcode, role) VALUES
   ('ADM-001', 'R. Matsuda', '$2a$10$rBnGzmr.bDm3p6KKMuXnXeHBpvwenXHrx.WdHoXqsHrNBFjYpOOLy', 'admin'),
-  ('STF-042', 'J. Barker',  '$2a$10$9HqY3bDcVyN2mKLpzQXXnOzqfL6vVQs8oJxKQGpvRMLX3F2lZjCsS', 'staff'),
-  ('STF-039', 'P. Kumar',   '$2a$10$DkBzHXqNpWYCpNJHq3M7OeyZ8TjbKWlq7PuJ5RWJ4XW6xHnQzUvDu', 'staff')
+  ('STF-042', 'J. Barker', '$2a$10$9HqY3bDcVyN2mKLpzQXXnOzqfL6vVQs8oJxKQGpvRMLX3F2lZjCsS', 'staff'),
+  ('STF-039', 'P. Kumar', '$2a$10$DkBzHXqNpWYCpNJHq3M7OeyZ8TjbKWlq7PuJ5RWJ4XW6xHnQzUvDu', 'staff')
 ON CONFLICT (user_id) DO NOTHING;
 
 -- ============================================================
 -- SEED: Feature flags
 -- ============================================================
-INSERT INTO features (key, enabled, label, description) VALUES
-  ('csvExport',    true,  'CSV Export',    'Staff can export visitor data as CSV'),
-  ('pdfExport',    true,  'PDF Reports',   'Staff can download PDF reports'),
-  ('editVisitor',  true,  'Edit Visitor',  'Staff can edit entries within current session'),
-  ('search',       true,  'Search',        'Search bar visible to staff'),
-  ('deleteRecord', false, 'Delete Records','Permanently remove visitor entries')
-ON CONFLICT (key) DO NOTHING;
+INSERT INTO features (feature_key, enabled, label, description) VALUES
+  ('csvExport', true, 'CSV Export', 'Staff can export visitor data as CSV'),
+  ('pdfExport', true, 'PDF Reports', 'Staff can download PDF reports'),
+  ('editVisitor', true, 'Edit Visitor', 'Staff can edit entries within current session'),
+  ('search', true, 'Search', 'Search bar visible to staff'),
+  ('deleteRecord', false, 'Delete Records', 'Permanently remove visitor entries')
+ON CONFLICT (feature_key) DO NOTHING;
 
 -- ============================================================
 -- HELPER: Auto-update updated_at timestamp
@@ -94,8 +94,39 @@ $$ LANGUAGE plpgsql;
 
 CREATE OR REPLACE TRIGGER users_updated_at
   BEFORE UPDATE ON users
-  FOR EACH ROW EXECUTE FUNCTION update_updated_at();
+  FOR EACH ROW
+  EXECUTE FUNCTION update_updated_at();
 
 CREATE OR REPLACE TRIGGER visitors_updated_at
   BEFORE UPDATE ON visitors
-  FOR EACH ROW EXECUTE FUNCTION update_updated_at();
+  FOR EACH ROW
+  EXECUTE FUNCTION update_updated_at();
+
+-- Helper: compute session date using 06:30 boundary
+CREATE OR REPLACE FUNCTION compute_session_date(ts TIMESTAMPTZ)
+RETURNS DATE AS $$
+DECLARE
+  local_dt TIMESTAMPTZ := ts;
+  boundary TIME := TIME '06:30:00';
+BEGIN
+  IF (local_dt::time >= boundary) THEN
+    RETURN (local_dt::date);
+  ELSE
+    RETURN (local_dt::date - INTERVAL '1 day')::date;
+  END IF;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Trigger to set session_date on insert/update
+CREATE OR REPLACE FUNCTION visitors_set_session_date()
+RETURNS TRIGGER AS $$
+BEGIN
+  NEW.session_date := compute_session_date(NEW.entry_timestamp);
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER visitors_set_session_date_trg
+  BEFORE INSERT OR UPDATE ON visitors
+  FOR EACH ROW
+  EXECUTE FUNCTION visitors_set_session_date();

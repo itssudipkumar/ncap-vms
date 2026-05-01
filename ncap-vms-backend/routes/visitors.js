@@ -1,8 +1,8 @@
 // routes/visitors.js — Visitor CRUD endpoints
 const express = require('express');
-const pool    = require('../db/pool');
+const pool = require('../db/pool');
 const { requireAuth, requireAdmin } = require('../middleware/auth');
-const router  = express.Router();
+const router = express.Router();
 
 // All visitor routes require login
 router.use(requireAuth);
@@ -103,7 +103,7 @@ router.post('/', async (req, res) => {
   }
 
   try {
-    const now         = new Date();
+    const now = new Date();
     const sessionDate = getSessionDate(now);
 
     const result = await pool.query(`
@@ -167,10 +167,10 @@ router.patch('/:id', async (req, res) => {
       WHERE id = $5
       RETURNING *
     `, [
-      rego    ? rego.trim().toUpperCase()  : null,
-      name    ? name.trim()                : null,
-      company ? company.trim()             : null,
-      dept    ? dept.trim()                : null,
+      rego ? rego.trim().toUpperCase() : null,
+      name ? name.trim() : null,
+      company ? company.trim() : null,
+      dept ? dept.trim() : null,
       id
     ]);
 

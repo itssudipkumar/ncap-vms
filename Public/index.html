@@ -1,400 +1,428 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NCAP VMS — Nissan Casting PTY LTD</title>
-<link rel="icon" type="image/png" href="logo.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/main.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NCAP VMS — Nissan Casting PTY LTD</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&family=Fira+Code:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
 </head>
+
 <body>
 
-<!-- ============================================================
+    <!-- ============================================================
 		 LOGIN PAGE
 		 ============================================================ -->
-<div id="login-page">
-	<div class="login-shell">
-		<div class="login-hero">
-			<img class="login-brand" src="logo.png" alt="Nissan Casting logo">
-			<div class="login-kicker">Visitor Management System</div>
-			<h1>Nissan Casting PTY LTD</h1>
-			<p>Secure staff sign in for visitor entry, exits, and session reporting.</p>
-		</div>
-	<div class="login-box">
-		<div class="login-logo">
-			<img class="login-emblem" src="logo.png" alt="Nissan Casting logo">
-			<div>
-				<div class="login-title">Staff Portal</div>
-				<div class="login-sub">Sign in to manage visitor sessions</div>
-			</div>
-		</div>
-		<div id="login-error" class="login-error hidden"></div>
-		<div class="form-group">
-			<label class="form-label" for="inp-userid">User ID</label>
-			<input class="form-input login-userid" id="inp-userid" type="text" placeholder="e.g. STF-042" autocomplete="username" autocapitalize="characters" spellcheck="false" oninput="this.value=this.value.toUpperCase()">
-		</div>
-		<div class="form-group" style="margin-bottom:8px;">
-			<label class="form-label">Passcode</label>
-			<!-- PIN dots display -->
-			<div id="pin-dots" style="display:flex;justify-content:center;gap:14px;margin:12px 0 18px;">
-				<div class="pin-dot" id="dot-0"></div>
-				<div class="pin-dot" id="dot-1"></div>
-				<div class="pin-dot" id="dot-2"></div>
-				<div class="pin-dot" id="dot-3"></div>
-			</div>
-			<!-- PIN numpad -->
-			<div id="pin-pad" style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:260px;margin:0 auto;">
-				<button class="pin-key" onclick="pinPress(1)">1</button>
-				<button class="pin-key" onclick="pinPress(2)">2</button>
-				<button class="pin-key" onclick="pinPress(3)">3</button>
-				<button class="pin-key" onclick="pinPress(4)">4</button>
-				<button class="pin-key" onclick="pinPress(5)">5</button>
-				<button class="pin-key" onclick="pinPress(6)">6</button>
-				<button class="pin-key" onclick="pinPress(7)">7</button>
-				<button class="pin-key" onclick="pinPress(8)">8</button>
-				<button class="pin-key" onclick="pinPress(9)">9</button>
-				<button class="pin-key pin-clear" onclick="pinClear()" style="font-size:11px;font-weight:700;">CLR</button>
-				<button class="pin-key" onclick="pinPress(0)">0</button>
-				<button class="pin-key pin-del" onclick="pinDel()">&#9003;</button>
-			</div>
-		</div>
-		<!-- hidden actual input for auth -->
-		<input type="hidden" id="inp-pass">
-		<div class="login-note">Credentials are assigned by your administrator</div>
-	</div>
-	</div>
-</div>
+    <div id="login-page">
+        <div class="login-shell">
+            <div class="login-hero">
+                <img class="login-brand" src="logo.png" alt="Nissan Casting logo">
+                <div class="login-kicker">Visitor Management System</div>
+                <h1>Nissan Casting PTY LTD</h1>
+                <p>Secure staff sign in for visitor entry, exits, and session reporting.</p>
+            </div>
+            <div class="login-box">
+                <div class="login-logo">
+                    <img class="login-emblem" src="logo.png" alt="Nissan Casting logo">
+                    <div>
+                        <div class="login-title">Staff Portal</div>
+                        <div class="login-sub">Sign in to manage visitor sessions</div>
+                    </div>
+                </div>
+                <div id="login-error" class="login-error hidden"></div>
+                <div class="form-group">
+                    <label class="form-label" for="inp-userid">User ID</label>
+                    <input class="form-input login-userid" id="inp-userid" type="text" placeholder="e.g. STF-042"
+                        autocomplete="username" autocapitalize="characters" spellcheck="false"
+                        oninput="this.value=this.value.toUpperCase()">
+                </div>
+                <div class="form-group" style="margin-bottom:8px;">
+                    <label class="form-label">Passcode</label>
+                    <!-- PIN dots display -->
+                    <div id="pin-dots" style="display:flex;justify-content:center;gap:14px;margin:12px 0 18px;">
+                        <div class="pin-dot" id="dot-0"></div>
+                        <div class="pin-dot" id="dot-1"></div>
+                        <div class="pin-dot" id="dot-2"></div>
+                        <div class="pin-dot" id="dot-3"></div>
+                    </div>
+                    <!-- PIN numpad -->
+                    <div id="pin-pad"
+                        style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:260px;margin:0 auto;">
+                        <button class="pin-key" onclick="pinPress(1)">1</button>
+                        <button class="pin-key" onclick="pinPress(2)">2</button>
+                        <button class="pin-key" onclick="pinPress(3)">3</button>
+                        <button class="pin-key" onclick="pinPress(4)">4</button>
+                        <button class="pin-key" onclick="pinPress(5)">5</button>
+                        <button class="pin-key" onclick="pinPress(6)">6</button>
+                        <button class="pin-key" onclick="pinPress(7)">7</button>
+                        <button class="pin-key" onclick="pinPress(8)">8</button>
+                        <button class="pin-key" onclick="pinPress(9)">9</button>
+                        <button class="pin-key pin-clear" onclick="pinClear()"
+                            style="font-size:11px;font-weight:700;">CLR</button>
+                        <button class="pin-key" onclick="pinPress(0)">0</button>
+                        <button class="pin-key pin-del" onclick="pinDel()">&#9003;</button>
+                    </div>
+                </div>
+                <!-- hidden actual input for auth -->
+                <input type="hidden" id="inp-pass">
+                <div class="login-note">Credentials are assigned by your administrator</div>
+            </div>
+        </div>
+    </div>
 
-<!-- APP SHELL (same markup as original) -->
-<div id="app-page" class="hidden">
+    <!-- APP SHELL (same markup as original) -->
+    <div id="app-page" class="hidden">
 
-	<!-- HEADER -->
-	<div class="app-header">
-		<div class="header-logo">
-			<img class="header-brand" src="logo.png" alt="Nissan Casting logo">
-			<div>
-				<div class="header-title">Nissan Casting PTY LTD</div>
-				<div class="header-sub">Visitor Management System</div>
-			</div>
-		</div>
-		<div class="header-right">
-			<div class="user-chip" onclick="toggleUserMenu()">
-				<div class="user-chip-av" id="header-av">JB</div>
-				<div>
-					<div class="user-chip-name" id="header-name">—</div>
-					<div class="user-chip-role" id="header-role">—</div>
-				</div>
-				<span style="font-size:9px;color:var(--blue-300);margin-left:4px;">▾</span>
-			</div>
-			<button class="logout-btn" onclick="doLogout()">Sign Out</button>
-		</div>
-	</div>
+        <!-- HEADER -->
+        <div class="app-header">
+            <div class="header-logo">
+                <img class="header-brand" src="logo.png" alt="Nissan Casting logo">
+                <div>
+                    <div class="header-title">Nissan Casting PTY LTD</div>
+                    <div class="header-sub">Visitor Management System</div>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="user-chip" onclick="toggleUserMenu()">
+                    <div class="user-chip-av" id="header-av">JB</div>
+                    <div>
+                        <div class="user-chip-name" id="header-name">—</div>
+                        <div class="user-chip-role" id="header-role">—</div>
+                    </div>
+                    <span style="font-size:9px;color:var(--blue-300);margin-left:4px;">▾</span>
+                </div>
+                <button class="logout-btn" onclick="doLogout()">Sign Out</button>
+            </div>
+        </div>
 
-	<!-- BODY -->
-	<div class="app-body">
+        <!-- BODY -->
+        <div class="app-body">
 
-		<!-- SIDEBAR -->
-		<div class="sidebar" id="sidebar">
-			<div class="nav-section-lbl">Main</div>
-			<div class="nav-item active" onclick="showView('dashboard')" data-view="dashboard">
-				<div class="nav-bar"></div>Dashboard
-			</div>
-			<div class="nav-item" onclick="showView('active')" data-view="active">
-				<div class="nav-bar"></div>Active Visitors
-				<span class="nav-badge" id="active-badge">0</span>
-			</div>
-			<div class="nav-item" onclick="showView('all')" data-view="all">
-				<div class="nav-bar"></div>All Visitors
-			</div>
-			<div class="nav-section-lbl">Records</div>
-			<div class="nav-item" onclick="showView('reports')" data-view="reports">
-				<div class="nav-bar"></div>Reports
-			</div>
-			<div class="nav-item hidden" id="nav-admin" onclick="showView('admin')" data-view="admin">
-				<div class="nav-bar"></div>Admin Panel
-				<span class="nav-admin-badge">A</span>
-			</div>
-			<div class="nav-item hidden" id="nav-users" onclick="showView('users')" data-view="users">
-				<div class="nav-bar"></div>Manage Users
-			</div>
-		</div>
+            <!-- SIDEBAR -->
+            <div class="sidebar" id="sidebar">
+                <div class="nav-section-lbl">Main</div>
+                <div class="nav-item active" onclick="showView('dashboard')" data-view="dashboard">
+                    <div class="nav-bar"></div>Dashboard
+                </div>
+                <div class="nav-item" onclick="showView('active')" data-view="active">
+                    <div class="nav-bar"></div>Active Visitors
+                    <span class="nav-badge" id="active-badge">0</span>
+                </div>
+                <div class="nav-item" onclick="showView('all')" data-view="all">
+                    <div class="nav-bar"></div>All Visitors
+                </div>
+                <div class="nav-section-lbl">Records</div>
+                <div class="nav-item" onclick="showView('reports')" data-view="reports">
+                    <div class="nav-bar"></div>Reports
+                </div>
+                <div class="nav-item hidden" id="nav-admin" onclick="showView('admin')" data-view="admin">
+                    <div class="nav-bar"></div>Admin Panel
+                    <span class="nav-admin-badge">A</span>
+                </div>
+                <div class="nav-item hidden" id="nav-users" onclick="showView('users')" data-view="users">
+                    <div class="nav-bar"></div>Manage Users
+                </div>
+            </div>
 
-		<!-- MAIN CONTENT -->
-		<div class="main-content">
+            <!-- MAIN CONTENT -->
+            <div class="main-content">
 
-			<!-- ===== DASHBOARD VIEW ===== -->
-			<div class="view active" id="view-dashboard">
-				<div>
-					<div class="page-title">Dashboard</div>
-					<div class="page-sub" id="dash-session-info">Thu 01 May 2025</div>
-				</div>
-				<div class="rec-strip">
-					<div class="rec-dot"></div>
-					<span>Recording as: <strong id="dash-user-name">—</strong></span>
-					<span style="color:var(--text3);font-size:10px;margin-left:auto;" id="dash-time">—</span>
-				</div>
-				<div class="stats-row">
-					<div class="stat-card blue-top">
-						<div class="stat-lbl">Total Today</div>
-						<div class="stat-val blue" id="stat-total">0</div>
-						<div class="stat-sub">visitors logged</div>
-					</div>
-					<div class="stat-card green-top">
-						<div class="stat-lbl">On Site Now</div>
-						<div class="stat-val green" id="stat-onsite">0</div>
-						<div class="stat-sub">currently inside</div>
-					</div>
-					<div class="stat-card red-top">
-						<div class="stat-lbl">Left Site</div>
-						<div class="stat-val red" id="stat-offsite">0</div>
-						<div class="stat-sub">have departed</div>
-					</div>
-				</div>
-				<div class="action-container">
-					<button class="action-btn" onclick="openAddModal()" style="border: 1px solid var(--border); background: var(--card);">
-						<span class="action-btn-icon">➕</span>
-						<span class="action-btn-label">Add Visitor</span>
-					</button>
-					<a href="check-in.html?kiosk=1" target="_blank" class="action-btn" style="border: 1px solid var(--blue-200); background: linear-gradient(135deg, #DBEAFE 0%, #EFF6FF 100%);">
-						<span class="action-btn-icon">📱</span>
-						<span class="action-btn-label">QR Check-In</span>
-					</a>
-				</div>
-				<div class="filter-bar">
-					<div class="search-wrap">
-						<svg width="12" height="12" viewBox="0 0 16 16" fill="none"><circle cx="7" cy="7" r="5" stroke="#9CA3AF" stroke-width="1.5"/><path d="M11 11L14 14" stroke="#9CA3AF" stroke-width="1.5" stroke-linecap="round"/></svg>
-						<input type="text" id="dash-search" placeholder="Search name, rego, company..." oninput="renderDashboard()">
-					</div>
-					<div class="filter-pill active" data-filter="all" onclick="setFilter('dash',this)">All</div>
-					<div class="filter-pill" data-filter="onsite" onclick="setFilter('dash',this)">On Site</div>
-					<div class="filter-pill" data-filter="offsite" onclick="setFilter('dash',this)">Off Site</div>
-				</div>
-				<div class="visitor-section">
-					<div class="visitor-section-head">
-						<span id="dash-table-label">Today's visitors</span>
-						<div style="display:flex;gap:6px;align-items:center;">
-							<span style="font-size:9px;color:var(--text3);">Sort:</span>
-							<span class="sort-chip active" onclick="setSort('dash','status',this)">Status</span>
-							<span class="sort-chip" onclick="setSort('dash','time',this)">Time</span>
-							<span class="sort-chip" onclick="setSort('dash','name',this)">Name</span>
-						</div>
-					</div>
-					<div class="vthead">
-						<div>Rego</div>
-						<div>Visitor</div>
-						<div>Dept / Person</div>
-						<div>Entry</div>
-						<div>Status</div>
-						<div>Actions</div>
-					</div>
-					<div class="visitor-scroll" id="dash-table-body"></div>
-				</div>
-			</div>
+                <!-- ===== DASHBOARD VIEW ===== -->
+                <div class="view active" id="view-dashboard">
+                    <div>
+                        <div class="page-title">Dashboard</div>
+                        <div class="page-sub" id="dash-session-info">Thu 01 May 2025</div>
+                    </div>
+                    <div class="rec-strip">
+                        <div class="rec-dot"></div>
+                        <span>Recording as: <strong id="dash-user-name">—</strong></span>
+                        <span style="color:var(--text3);font-size:10px;margin-left:auto;" id="dash-time">—</span>
+                    </div>
+                    <div class="stats-row">
+                        <div class="stat-card blue-top">
+                            <div class="stat-lbl">Total Today</div>
+                            <div class="stat-val blue" id="stat-total">0</div>
+                            <div class="stat-sub">visitors logged</div>
+                        </div>
+                        <div class="stat-card green-top">
+                            <div class="stat-lbl">On Site Now</div>
+                            <div class="stat-val green" id="stat-onsite">0</div>
+                            <div class="stat-sub">currently inside</div>
+                        </div>
+                        <div class="stat-card red-top">
+                            <div class="stat-lbl">Left Site</div>
+                            <div class="stat-val red" id="stat-offsite">0</div>
+                            <div class="stat-sub">have departed</div>
+                        </div>
+                    </div>
+                    <div class="action-container">
+                        <button class="action-btn" onclick="openAddModal()"
+                            style="border: 1px solid var(--border); background: var(--card);">
+                            <span class="action-btn-icon">➕</span>
+                            <span class="action-btn-label">Add Visitor</span>
+                        </button>
+                        <a href="check-in.html?kiosk=1" target="_blank" class="action-btn"
+                            style="border: 1px solid var(--blue-200); background: linear-gradient(135deg, #DBEAFE 0%, #EFF6FF 100%);">
+                            <span class="action-btn-icon">📱</span>
+                            <span class="action-btn-label">QR Check-In</span>
+                        </a>
+                    </div>
+                    <div class="filter-bar">
+                        <div class="search-wrap">
+                            <svg width="12" height="12" viewBox="0 0 16 16" fill="none">
+                                <circle cx="7" cy="7" r="5" stroke="#9CA3AF" stroke-width="1.5" />
+                                <path d="M11 11L14 14" stroke="#9CA3AF" stroke-width="1.5" stroke-linecap="round" />
+                            </svg>
+                            <input type="text" id="dash-search" placeholder="Search name, rego, company..."
+                                oninput="renderDashboard()">
+                        </div>
+                        <div class="filter-pill active" data-filter="all" onclick="setFilter('dash',this)">All</div>
+                        <div class="filter-pill" data-filter="onsite" onclick="setFilter('dash',this)">On Site</div>
+                        <div class="filter-pill" data-filter="offsite" onclick="setFilter('dash',this)">Off Site</div>
+                    </div>
+                    <div class="visitor-section">
+                        <div class="visitor-section-head">
+                            <span id="dash-table-label">Today's visitors</span>
+                            <div style="display:flex;gap:6px;align-items:center;">
+                                <span style="font-size:9px;color:var(--text3);">Sort:</span>
+                                <span class="sort-chip active" onclick="setSort('dash','status',this)">Status</span>
+                                <span class="sort-chip" onclick="setSort('dash','time',this)">Time</span>
+                                <span class="sort-chip" onclick="setSort('dash','name',this)">Name</span>
+                            </div>
+                        </div>
+                        <div class="vthead">
+                            <div>Rego</div>
+                            <div>Visitor</div>
+                            <div>Dept / Person</div>
+                            <div>Entry</div>
+                            <div>Status</div>
+                            <div>Actions</div>
+                        </div>
+                        <div class="visitor-scroll" id="dash-table-body"></div>
+                    </div>
+                </div>
 
-			<!-- ===== ACTIVE VISITORS VIEW ===== -->
-			<div class="view" id="view-active">
-				<div>
-					<div class="page-title">Active Visitors</div>
-					<div class="page-sub">Current on-site visitors for today</div>
-				</div>
-				<div class="filter-bar">
-					<div class="search-wrap">
-						<svg width="12" height="12" viewBox="0 0 16 16" fill="none"><circle cx="7" cy="7" r="5" stroke="#9CA3AF" stroke-width="1.5"/><path d="M11 11L14 14" stroke="#9CA3AF" stroke-width="1.5" stroke-linecap="round"/></svg>
-						<input type="text" id="active-search" placeholder="Search active visitors..." oninput="renderActive()">
-					</div>
-				</div>
-				<div class="visitor-section">
-					<div class="visitor-section-head">
-						<span>Currently on site</span>
-					</div>
-					<div class="vthead">
-						<div>Rego</div>
-						<div>Visitor</div>
-						<div>Dept / Person</div>
-						<div>Entry</div>
-						<div>Status</div>
-						<div>Actions</div>
-					</div>
-					<div class="visitor-scroll" id="active-table-body"></div>
-				</div>
-			</div>
+                <!-- ===== ACTIVE VISITORS VIEW ===== -->
+                <div class="view" id="view-active">
+                    <div>
+                        <div class="page-title">Active Visitors</div>
+                        <div class="page-sub">Current on-site visitors for today</div>
+                    </div>
+                    <div class="filter-bar">
+                        <div class="search-wrap">
+                            <svg width="12" height="12" viewBox="0 0 16 16" fill="none">
+                                <circle cx="7" cy="7" r="5" stroke="#9CA3AF" stroke-width="1.5" />
+                                <path d="M11 11L14 14" stroke="#9CA3AF" stroke-width="1.5" stroke-linecap="round" />
+                            </svg>
+                            <input type="text" id="active-search" placeholder="Search active visitors..."
+                                oninput="renderActive()">
+                        </div>
+                    </div>
+                    <div class="visitor-section">
+                        <div class="visitor-section-head">
+                            <span>Currently on site</span>
+                        </div>
+                        <div class="vthead">
+                            <div>Rego</div>
+                            <div>Visitor</div>
+                            <div>Dept / Person</div>
+                            <div>Entry</div>
+                            <div>Status</div>
+                            <div>Actions</div>
+                        </div>
+                        <div class="visitor-scroll" id="active-table-body"></div>
+                    </div>
+                </div>
 
-			<!-- ===== ALL VISITORS VIEW ===== -->
-			<div class="view" id="view-all">
-				<div>
-					<div class="page-title">All Visitors</div>
-					<div class="page-sub">Search and review all visitor records</div>
-				</div>
-				<div class="filter-bar">
-					<div class="search-wrap">
-						<svg width="12" height="12" viewBox="0 0 16 16" fill="none"><circle cx="7" cy="7" r="5" stroke="#9CA3AF" stroke-width="1.5"/><path d="M11 11L14 14" stroke="#9CA3AF" stroke-width="1.5" stroke-linecap="round"/></svg>
-						<input type="text" id="all-search" placeholder="Search all visitors..." oninput="renderAll()">
-					</div>
-					<div class="filter-pill active" data-filter="all" onclick="setFilter('all',this)">All</div>
-					<div class="filter-pill" data-filter="onsite" onclick="setFilter('all',this)">On Site</div>
-					<div class="filter-pill" data-filter="offsite" onclick="setFilter('all',this)">Off Site</div>
-				</div>
-				<div class="visitor-section">
-					<div class="visitor-section-head">
-						<span>All records</span>
-					</div>
-					<div class="vthead">
-						<div>Rego</div>
-						<div>Visitor</div>
-						<div>Dept / Person</div>
-						<div>Entry</div>
-						<div>Status</div>
-						<div>Actions</div>
-					</div>
-					<div class="visitor-scroll" id="all-table-body"></div>
-				</div>
-			</div>
+                <!-- ===== ALL VISITORS VIEW ===== -->
+                <div class="view" id="view-all">
+                    <div>
+                        <div class="page-title">All Visitors</div>
+                        <div class="page-sub">Search and review all visitor records</div>
+                    </div>
+                    <div class="filter-bar">
+                        <div class="search-wrap">
+                            <svg width="12" height="12" viewBox="0 0 16 16" fill="none">
+                                <circle cx="7" cy="7" r="5" stroke="#9CA3AF" stroke-width="1.5" />
+                                <path d="M11 11L14 14" stroke="#9CA3AF" stroke-width="1.5" stroke-linecap="round" />
+                            </svg>
+                            <input type="text" id="all-search" placeholder="Search all visitors..."
+                                oninput="renderAll()">
+                        </div>
+                        <div class="filter-pill active" data-filter="all" onclick="setFilter('all',this)">All</div>
+                        <div class="filter-pill" data-filter="onsite" onclick="setFilter('all',this)">On Site</div>
+                        <div class="filter-pill" data-filter="offsite" onclick="setFilter('all',this)">Off Site</div>
+                    </div>
+                    <div class="visitor-section">
+                        <div class="visitor-section-head">
+                            <span>All records</span>
+                        </div>
+                        <div class="vthead">
+                            <div>Rego</div>
+                            <div>Visitor</div>
+                            <div>Dept / Person</div>
+                            <div>Entry</div>
+                            <div>Status</div>
+                            <div>Actions</div>
+                        </div>
+                        <div class="visitor-scroll" id="all-table-body"></div>
+                    </div>
+                </div>
 
-			<!-- ===== REPORTS VIEW ===== -->
-			<div class="view" id="view-reports">
-				<div>
-					<div class="page-title">Reports</div>
-					<div class="page-sub">Session-based export and print reports</div>
-				</div>
-				<div class="filter-bar">
-					<div class="search-wrap">
-						<input type="date" id="report-date-filter" onchange="renderReports()" style="border:none;background:transparent;outline:none;font-family:var(--font);font-size:12px;">
-					</div>
-					<div class="filter-pill active" data-filter="all" onclick="setFilter('report',this)">All</div>
-					<div class="filter-pill" data-filter="live" onclick="setFilter('report',this)">Live</div>
-					<div class="filter-pill" data-filter="closed" onclick="setFilter('report',this)">Closed</div>
-				</div>
-				<div id="report-list"></div>
-			</div>
+                <!-- ===== REPORTS VIEW ===== -->
+                <div class="view" id="view-reports">
+                    <div>
+                        <div class="page-title">Reports</div>
+                        <div class="page-sub">Session-based export and print reports</div>
+                    </div>
+                    <div class="filter-bar">
+                        <div class="search-wrap">
+                            <input type="date" id="report-date-filter" onchange="renderReports()"
+                                style="border:none;background:transparent;outline:none;font-family:var(--font);font-size:12px;">
+                        </div>
+                        <div class="filter-pill active" data-filter="all" onclick="setFilter('report',this)">All</div>
+                        <div class="filter-pill" data-filter="live" onclick="setFilter('report',this)">Live</div>
+                        <div class="filter-pill" data-filter="closed" onclick="setFilter('report',this)">Closed</div>
+                    </div>
+                    <div id="report-list"></div>
+                </div>
 
-			<!-- ===== ADMIN VIEW ===== -->
-			<div class="view" id="view-admin">
-				<div>
-					<div class="page-title">Admin Panel</div>
-					<div class="page-sub">Feature flags and system settings</div>
-				</div>
-				<div class="visitor-section">
-					<div class="visitor-section-head"><span>Feature toggles</span></div>
-					<div id="toggle-list"></div>
-				</div>
-			</div>
+                <!-- ===== ADMIN VIEW ===== -->
+                <div class="view" id="view-admin">
+                    <div>
+                        <div class="page-title">Admin Panel</div>
+                        <div class="page-sub">Feature flags and system settings</div>
+                    </div>
+                    <div class="visitor-section">
+                        <div class="visitor-section-head"><span>Feature toggles</span></div>
+                        <div id="toggle-list"></div>
+                    </div>
+                </div>
 
-			<!-- ===== USERS VIEW ===== -->
-			<div class="view" id="view-users">
-				<div>
-					<div class="page-title">Manage Users</div>
-					<div class="page-sub">Create and remove staff accounts</div>
-				</div>
-				<div class="filter-bar">
-					<button class="add-visitor-btn" onclick="openCreateUserModal()">+ Create User</button>
-				</div>
-				<div class="visitor-section">
-					<div class="visitor-section-head"><span>Current users</span></div>
-					<div id="user-list"></div>
-				</div>
-			</div>
+                <!-- ===== USERS VIEW ===== -->
+                <div class="view" id="view-users">
+                    <div>
+                        <div class="page-title">Manage Users</div>
+                        <div class="page-sub">Create and remove staff accounts</div>
+                    </div>
+                    <div class="filter-bar">
+                        <button class="add-visitor-btn" onclick="openCreateUserModal()">+ Create User</button>
+                    </div>
+                    <div class="visitor-section">
+                        <div class="visitor-section-head"><span>Current users</span></div>
+                        <div id="user-list"></div>
+                    </div>
+                </div>
 
-		</div><!-- /main-content -->
-	</div><!-- /app-body -->
-</div><!-- /app-page -->
+            </div><!-- /main-content -->
+        </div><!-- /app-body -->
+    </div><!-- /app-page -->
 
-<!-- MODALS and TOAST -->
+    <!-- MODALS and TOAST -->
 
-<div id="modal-visitor" class="modal-backdrop hidden" onclick="closeModalBackdrop(event,'modal-visitor')">
-	<div class="modal">
-		<div class="modal-title" id="modal-visitor-title">New Visitor Entry</div>
-		<div class="modal-sub" id="modal-visitor-sub">—</div>
-		<div class="modal-grid">
-			<div class="full">
-				<label class="form-label">Vehicle Rego</label>
-				<input class="form-input" id="inp-rego" type="text" placeholder="e.g. ABC 123" maxlength="10"
-					oninput="this.value=this.value.toUpperCase();updateRegoPreview()" style="font-family:var(--mono);font-weight:600;font-size:14px;letter-spacing:1px;">
-				<div class="rego-preview-wrap" id="rego-preview-wrap"></div>
-			</div>
-			<div>
-				<label class="form-label">Visitor Name</label>
-				<input class="form-input" id="inp-vname" type="text" placeholder="Full name">
-			</div>
-			<div>
-				<label class="form-label">Company From</label>
-				<input class="form-input" id="inp-company" type="text" placeholder="Company name">
-			</div>
-			<div class="full">
-				<label class="form-label">Department / Person Visiting</label>
-				<input class="form-input" id="inp-dept" type="text" placeholder="e.g. Operations / K. Lee">
-			</div>
-			<div id="auto-fields-wrap">
-				<label class="form-label">Entry Date (auto)</label>
-				<div class="auto-field" id="auto-date">—</div>
-			</div>
-			<div id="auto-time-wrap">
-				<label class="form-label">Entry Time (auto)</label>
-				<div class="auto-field" id="auto-time">—</div>
-			</div>
-		</div>
-		<div class="modal-actions">
-			<button class="btn-cancel" onclick="closeModal('modal-visitor')">Cancel</button>
-			<button class="btn-submit" id="modal-visitor-submit" onclick="submitVisitor()">Record Entry</button>
-		</div>
-	</div>
-</div>
+    <div id="modal-visitor" class="modal-backdrop hidden" onclick="closeModalBackdrop(event,'modal-visitor')">
+        <div class="modal">
+            <div class="modal-title" id="modal-visitor-title">New Visitor Entry</div>
+            <div class="modal-sub" id="modal-visitor-sub">—</div>
+            <div class="modal-grid">
+                <div class="full">
+                    <label class="form-label">Vehicle Rego</label>
+                    <input class="form-input" id="inp-rego" type="text" placeholder="e.g. ABC 123" maxlength="10"
+                        oninput="this.value=this.value.toUpperCase();updateRegoPreview()"
+                        style="font-family:var(--mono);font-weight:600;font-size:14px;letter-spacing:1px;">
+                    <div class="rego-preview-wrap" id="rego-preview-wrap"></div>
+                </div>
+                <div>
+                    <label class="form-label">Visitor Name</label>
+                    <input class="form-input" id="inp-vname" type="text" placeholder="Full name">
+                </div>
+                <div>
+                    <label class="form-label">Company From</label>
+                    <input class="form-input" id="inp-company" type="text" placeholder="Company name">
+                </div>
+                <div class="full">
+                    <label class="form-label">Department / Person Visiting</label>
+                    <input class="form-input" id="inp-dept" type="text" placeholder="e.g. Operations / K. Lee">
+                </div>
+                <div id="auto-fields-wrap">
+                    <label class="form-label">Entry Date (auto)</label>
+                    <div class="auto-field" id="auto-date">—</div>
+                </div>
+                <div id="auto-time-wrap">
+                    <label class="form-label">Entry Time (auto)</label>
+                    <div class="auto-field" id="auto-time">—</div>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="btn-cancel" onclick="closeModal('modal-visitor')">Cancel</button>
+                <button class="btn-submit" id="modal-visitor-submit" onclick="submitVisitor()">Record Entry</button>
+            </div>
+        </div>
+    </div>
 
-<!-- CREATE USER MODAL (kept) -->
-<div id="modal-user" class="modal-backdrop hidden" onclick="closeModalBackdrop(event,'modal-user')">
-	<div class="modal" style="max-width:400px;">
-		<div class="modal-title">Create User</div>
-		<div class="modal-sub">Admin-managed credentials</div>
-		<div class="form-group">
-			<label class="form-label">Full Name</label>
-			<input class="form-input" id="inp-new-name" type="text" placeholder="Full name">
-		</div>
-		<div class="form-group">
-			<label class="form-label">User ID</label>
-			<input class="form-input" id="inp-new-id" type="text" placeholder="e.g. STF-055" style="font-family:var(--mono);">
-		</div>
-		<div class="form-group">
-			<label class="form-label">Passcode</label>
-			<input class="form-input" id="inp-new-pass" type="text" placeholder="Auto-generated on submit" disabled style="background:var(--blue-50);color:var(--text3);">
-			<div style="font-size:11px;color:var(--text3);margin-top:4px;">A random 4-digit passcode will be generated automatically.</div>
-		</div>
-		<div class="form-group">
-			<label class="form-label">Role</label>
-			<select class="form-input" id="inp-new-role">
-				<option value="staff">Staff</option>
-				<option value="admin">Admin</option>
-			</select>
-		</div>
-		<div class="modal-actions">
-			<button class="btn-cancel" onclick="closeModal('modal-user')">Cancel</button>
-			<button class="btn-submit" onclick="submitCreateUser()">Create User</button>
-		</div>
-	</div>
-</div>
+    <!-- CREATE USER MODAL (kept) -->
+    <div id="modal-user" class="modal-backdrop hidden" onclick="closeModalBackdrop(event,'modal-user')">
+        <div class="modal" style="max-width:400px;">
+            <div class="modal-title">Create User</div>
+            <div class="modal-sub">Admin-managed credentials</div>
+            <div class="form-group">
+                <label class="form-label">Full Name</label>
+                <input class="form-input" id="inp-new-name" type="text" placeholder="Full name">
+            </div>
+            <div class="form-group">
+                <label class="form-label">User ID</label>
+                <input class="form-input" id="inp-new-id" type="text" placeholder="e.g. STF-055"
+                    style="font-family:var(--mono);">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Passcode</label>
+                <input class="form-input" id="inp-new-pass" type="text" placeholder="Auto-generated on submit" disabled
+                    style="background:var(--blue-50);color:var(--text3);">
+                <div style="font-size:11px;color:var(--text3);margin-top:4px;">A random 4-digit passcode will be
+                    generated automatically.</div>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Role</label>
+                <select class="form-input" id="inp-new-role">
+                    <option value="staff">Staff</option>
+                    <option value="admin">Admin</option>
+                </select>
+            </div>
+            <div class="modal-actions">
+                <button class="btn-cancel" onclick="closeModal('modal-user')">Cancel</button>
+                <button class="btn-submit" onclick="submitCreateUser()">Create User</button>
+            </div>
+        </div>
+    </div>
 
-<!-- CONFIRM EXIT MODAL -->
-<div id="modal-confirm" class="modal-backdrop hidden" onclick="closeModalBackdrop(event,'modal-confirm')">
-	<div class="confirm-dialog">
-		<div class="confirm-title">Record Exit?</div>
-		<div class="confirm-sub" id="confirm-msg">This will mark the visitor as Off Site.</div>
-		<div class="confirm-actions">
-			<button class="btn-confirm-no" onclick="closeModal('modal-confirm')">Cancel</button>
-			<button class="btn-confirm-yes" onclick="confirmExit()">Confirm Exit</button>
-		</div>
-	</div>
-</div>
+    <!-- CONFIRM EXIT MODAL -->
+    <div id="modal-confirm" class="modal-backdrop hidden" onclick="closeModalBackdrop(event,'modal-confirm')">
+        <div class="confirm-dialog">
+            <div class="confirm-title">Record Exit?</div>
+            <div class="confirm-sub" id="confirm-msg">This will mark the visitor as Off Site.</div>
+            <div class="confirm-actions">
+                <button class="btn-confirm-no" onclick="closeModal('modal-confirm')">Cancel</button>
+                <button class="btn-confirm-yes" onclick="confirmExit()">Confirm Exit</button>
+            </div>
+        </div>
+    </div>
 
-<!-- TOAST -->
-<div id="toast" class="toast"></div>
+    <!-- TOAST -->
+    <div id="toast" class="toast"></div>
 
-<!-- Load JS modules in dependency order -->
-<script src="js/data.js"></script>
-<script src="js/utils.js"></script>
-<script src="js/auth.js"></script>
-<script src="js/views.js"></script>
-<script src="js/modals.js"></script>
-<script src="js/admin.js"></script>
-<script src="js/app.js"></script>
+    <!-- Load JS modules in dependency order -->
+    <script src="js/data.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/views.js"></script>
+    <script src="js/modals.js"></script>
+    <script src="js/admin.js"></script>
+    <script src="js/app.js"></script>
 </body>
+
 </html>
