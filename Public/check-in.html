@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visitor Self Check-In — Nissan Casting PTY LTD</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&family=Fira+Code:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --blue-900: #1E3A5F;
+            --blue-800: #1A4B8C;
+            --blue-700: #1D5CB4;
+            --blue-600: #2563EB;
+            --blue-500: #3B82F6;
+            --blue-400: #60A5FA;
+            --blue-300: #93C5FD;
+            --blue-200: #BFDBFE;
+            --blue-100: #DBEAFE;
+            --blue-50: #EFF6FF;
+            --header: #1E3A5F;
+            --accent: #2563EB;
+            --accent-h: #1D4ED8;
+            --bg: #F0F4FF;
+            --card: #FFFFFF;
+            --border: #BFDBFE;
+            --text: #111827;
+            --text2: #374151;
+            --text3: #6B7280;
+            --text4: #9CA3AF;
+            --green: #059669;
+            --font: 'Lexend', sans-serif;
+            --radius: 10px;
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            font-family: var(--font);
+            background: linear-gradient(180deg, #f9fbff 0%, #eef4ff 52%, #e7efff 100%);
+            color: var(--text);
+            min-height: 100vh;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .page-wrapper {
+            width: 100%;
+            max-width: 520px;
+        }
+
+        .header-bar {
+            background: linear-gradient(90deg, var(--header), #173259 70%, #152b4c);
+            color: white;
+            padding: 14px 20px;
+            border-radius: 14px 14px 0 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header-logo {
+            width: 32px;
+            height: 32px;
+            object-fit: contain;
+        }
+
+        .header-text h2 {
+            font-size: 15px;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .header-text p {
+            font-size: 10px;
+            color: rgba(255, 255, 255, 0.8);
+            margin: 0;
+        }
+
+        .page-form {
+            background: var(--card);
+            border: 0.5px solid var(--border);
+            border-top: none;
+            border-radius: 0 0 14px 14px;
+            padding: 28px 24px;
+            box-shadow: 0 12px 40px rgba(37, 99, 235, 0.1);
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .form-header h1 {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--header);
+            margin-bottom: 4px;
+        }
+
+        .form-header p {
+            font-size: 12px;
+            color: var(--text3);
+        }
+
+        .qr-section {
+            background: linear-gradient(135deg, #DBEAFE 0%, #EFF6FF 100%);
+            border: 2px dashed var(--blue-200);
+            border-radius: 12px;
+            padding: 16px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .qr-label {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--header);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .qr-code-display {
+            display: inline-block;
+            padding: 12px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15);
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text2);
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 11px 14px;
+            border: 0.5px solid var(--border);
+            border-radius: 8px;
+            font-family: var(--font);
+            font-size: 13px;
+            color: var(--text);
+            background: #F9FAFB;
+            outline: none;
+            transition: border 0.2s, background 0.2s;
+        }
+
+        .form-input:focus {
+            border-color: var(--accent);
+            background: white;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .form-input::placeholder {
+            color: var(--text4);
+        }
+
+        .form-section-title {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--header);
+            margin-bottom: 12px;
+            margin-top: 18px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Redesigned form layout */
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            align-items: start;
+        }
+
+        .form-group.full {
+            grid-column: 1 / -1;
+        }
+
+        .form-note {
+            font-size: 12px;
+            color: var(--text3);
+            margin-bottom: 10px;
+        }
+
+        .required-star {
+            color: #DC2626;
+            margin-left: 4px;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .btn-submit {
+            flex: 1 1 auto;
+            padding: 12px 18px;
+            border-radius: 10px;
+            box-shadow: 0 8px 30px rgba(37, 99, 235, 0.12);
+        }
+
+        .btn-reset {
+            flex: 0 0 130px;
+        }
+
+        .form-section-title:first-of-type {
+            margin-top: 0;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .btn-submit {
+            flex: 1;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 11px 16px;
+            font-family: var(--font);
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s;
+        }
+
+        .btn-submit:hover {
+            background: var(--accent-h);
+            transform: translateY(-1px);
+        }
+
+        .btn-submit:active {
+            transform: translateY(0);
+        }
+
+        .btn-reset {
+            background: transparent;
+            color: var(--text3);
+            border: 0.5px solid var(--border);
+            border-radius: 8px;
+            padding: 11px 14px;
+            font-family: var(--font);
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 600;
+        }
+
+        .btn-reset:hover {
+            background: var(--blue-50);
+            color: var(--text2);
+            border-color: var(--accent);
+        }
+
+        .error-msg {
+            color: #DC2626;
+            font-size: 11px;
+            margin-top: 4px;
+            display: none;
+            font-weight: 600;
+        }
+
+        .error-msg.show {
+            display: block;
+        }
+
+        .greeting-screen {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 28px 16px;
+        }
+
+        .greeting-card {
+            width: 100%;
+            max-width: 520px;
+            background: linear-gradient(180deg, #FFFFFF 0%, #F8FBFF 100%);
+            border-radius: 14px;
+            padding: 28px 22px;
+            box-shadow: 0 18px 60px rgba(16, 24, 40, 0.08);
+            text-align: center;
+        }
+
+        .greeting-top {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .greeting-badge {
+            width: 84px;
+            height: 84px;
+            border-radius: 22px;
+            background: linear-gradient(135deg, #DBEAFE, #EFF6FF);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 24px rgba(37, 99, 235, 0.08);
+            margin: 0 auto 10px;
+        }
+
+        .greeting-check {
+            font-size: 44px;
+            color: #1E3A5F;
+        }
+
+        .greeting-msg {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text2);
+            margin-bottom: 6px;
+        }
+
+        .greeting-name {
+            font-size: 26px;
+            font-weight: 800;
+            color: var(--header);
+            margin-bottom: 6px;
+        }
+
+        .greeting-sub {
+            font-size: 13px;
+            color: var(--text3);
+            margin-bottom: 10px;
+        }
+
+        .greeting-detail {
+            font-size: 13px;
+            color: var(--text2);
+            margin: 8px 0;
+            font-family: 'Fira Code';
+        }
+
+        .info-box {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            padding: 14px 16px;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.6;
+            margin-top: 24px;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        @media (max-width: 599px) {
+            .page-form {
+                padding: 20px 16px;
+            }
+
+            .form-label {
+                font-size: 10px;
+            }
+
+            .form-input {
+                font-size: 12px;
+                padding: 9px 12px;
+            }
+
+            .form-section-title {
+                font-size: 10px;
+            }
+
+            .btn-submit,
+            .btn-reset {
+                font-size: 12px;
+                padding: 9px 12px;
+            }
+
+            .greeting-check {
+                font-size: 44px;
+            }
+
+            .greeting-msg {
+                font-size: 14px;
+            }
+
+            .greeting-name {
+                font-size: 24px;
+            }
+
+            .greeting-sub {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- KIOSK SCREEN (staff opens this to display QR only) -->
+    <div id="kiosk-screen" class="page-wrapper hidden">
+        <div class="header-bar">
+            <img class="header-logo" src="logo.png" alt="Nissan Casting">
+            <div class="header-text">
+                <h2>QR Check-In (Kiosk)</h2>
+                <p>Scan to open the visitor check-in form on your phone</p>
+            </div>
+        </div>
+        <div class="page-form" style="text-align:center;">
+            <div style="margin-bottom:8px;">
+                <span class="qr-label" style="font-size:14px;">📱 Visitors — Scan to Check In</span>
+            </div>
+            <div style="display:flex;justify-content:center;">
+                <div class="qr-code-display" id="kiosk-qr-container" style="padding:22px;"></div>
+            </div>
+            <div style="margin-top:16px;font-size:13px;color:var(--text3);">This device displays the QR only. Visitors
+                should scan it with their phone.</div>
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:center;">
+                <button class="btn-submit" onclick="printKioskQRCode()">Print QR</button>
+                <button class="btn-reset" onclick="downloadKioskQRCode()">Download QR</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- FORM SCREEN -->
+    <div id="form-screen" class="page-wrapper">
+        <div class="header-bar">
+            <img class="header-logo" src="logo.png" alt="Nissan Casting">
+            <div class="header-text">
+                <h2>Visitor Check-In</h2>
+                <p>Nissan Casting PTY LTD</p>
+            </div>
+        </div>
+        <div class="page-form">
+            <div class="form-header">
+                <h1>Welcome</h1>
+            </div>
+
+            <!-- inline QR removed (kiosk provides QR) -->
+
+            <form id="checkin-form" aria-label="Visitor check-in form">
+                <div class="form-header" style="padding-top:6px;">
+                    <div class="form-note">Please complete the short form below. Fields marked <span
+                            class="required-star">*</span> are required.</div>
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group full">
+                        <label class="form-label">Full Name <span class="required-star">*</span></label>
+                        <input class="form-input" id="inp-name" type="text" placeholder="Your full name" required
+                            autofocus>
+                        <div class="error-msg" id="err-name"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Vehicle Rego <span class="required-star">*</span></label>
+                        <input class="form-input" id="inp-rego" type="text" placeholder="e.g. ABC 123"
+                            style="font-family:'Fira Code'; font-weight:600; letter-spacing:1px; text-transform:uppercase;"
+                            maxlength="10" required>
+                        <div class="error-msg" id="err-rego"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Company From <span class="required-star">*</span></label>
+                        <input class="form-input" id="inp-company" type="text" placeholder="Your company name" required>
+                        <div class="error-msg" id="err-company"></div>
+                    </div>
+
+                    <div class="form-group full">
+                        <label class="form-label">Department / Person Visiting <span
+                                class="required-star">*</span></label>
+                        <input class="form-input" id="inp-dept" type="text" placeholder="e.g. Operations / K. Lee"
+                            required>
+                        <div class="error-msg" id="err-dept"></div>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button class="btn-submit" type="submit">✓ Submit Check-In</button>
+                    <button class="btn-reset" type="reset">Clear</button>
+                </div>
+
+                <div class="info-box"
+                    style="margin-top:18px; color:var(--text2); background:linear-gradient(180deg, #fff, #fbfdff); border-color:var(--border);">
+                    <strong>ℹ️ Information:</strong> Your details will be recorded in our visitor management system. A
+                    host notification will be sent if available.
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- GREETING SCREEN -->
+    <div id="greeting-screen" class="greeting-screen hidden">
+        <div class="greeting-card">
+            <div class="greeting-top">
+                <div class="greeting-badge">
+                    <div class="greeting-check">✓</div>
+                </div>
+            </div>
+            <div class="greeting-msg">You're checked in</div>
+            <div class="greeting-name" id="greeting-name">—</div>
+            <div class="greeting-sub">Nissan Casting PTY LTD</div>
+            <div class="greeting-detail">Thank you for checking in. Please wait for the host to be notified.</div>
+            <div class="info-box" style="margin-top:16px; text-align:left;">
+                <div><strong>Entry:</strong> <span id="entry-time">—</span></div>
+                <div><strong>Vehicle:</strong> <span id="entry-rego">—</span></div>
+                <div><strong>Visiting:</strong> <span id="entry-dept">—</span></div>
+                <div><strong>Company:</strong> <span id="entry-company">—</span></div>
+            </div>
+            <div style="margin-top:18px; display:flex; gap:10px; justify-content:center;">
+                <button id="greeting-done" class="btn-submit" style="max-width:200px;">Done</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Parse URL params to decide mode (kiosk vs form)
+        const params = new URLSearchParams(window.location.search);
+        const isKiosk = params.get('kiosk') === '1';
+        const isFormMode = params.get('form') === '1' || params.get('self') === '1';
+
+        // Base check-in URL (use same file path)
+        const baseUrl = window.location.href.split('?')[0].replace(/\/?$/, '');
+        const formUrl = baseUrl + '?form=1';
+
+        function generateQRCodeAt(id, text, size = 180) {
+            const qrContainer = document.getElementById(id);
+            if (!qrContainer) return;
+            if (typeof QRCode !== 'undefined') {
+                qrContainer.innerHTML = '';
+                new QRCode(qrContainer, {
+                    text: text,
+                    width: size,
+                    height: size,
+                    colorDark: '#1E3A5F',
+                    colorLight: '#FFFFFF',
+                    correctLevel: QRCode.CorrectLevel.H
+                });
+            } else {
+                qrContainer.textContent = text;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // Mode routing
+            if (isKiosk) {
+                document.getElementById('kiosk-screen').classList.remove('hidden');
+                document.getElementById('form-screen').classList.add('hidden');
+                document.getElementById('greeting-screen').classList.add('hidden');
+                // kiosk QR should link visitors to the form URL
+                generateQRCodeAt('kiosk-qr-container', formUrl, 220);
+                return;
+            }
+
+            // If loaded with ?form=1 show form-only (hide inline QR)
+            if (isFormMode) {
+                const inline = document.getElementById('inline-qr');
+                if (inline) inline.classList.add('hidden');
+            } else {
+                // default: show inline QR (for users opening page directly)
+                generateQRCodeAt('qr-code-container', formUrl, 180);
+            }
+        });
+
+        // Attempt to POST visitor to backend; if fails, reject so caller can fallback to localStorage
+        function postToBackend(visitor) {
+            return new Promise((resolve, reject) => {
+                // prefer same-origin API if page served via http(s), otherwise default to localhost:3000
+                const origin = (window.location && window.location.origin && window.location.origin.startsWith('http')) ? window.location.origin : 'http://localhost:3000';
+                const url = origin + '/api/visitors';
+
+                fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(visitor),
+                }).then(resp => {
+                    if (resp.ok) return resp.json().then(data => resolve(data));
+                    return resp.text().then(text => reject(new Error(text || 'Bad response')));
+                }).catch(err => reject(err));
+            });
+        }
+
+        // Print helper: open a new window showing only the QR element and call print
+        function printKioskQRCode() {
+            const el = document.getElementById('kiosk-qr-container');
+            if (!el) return alert('QR not available');
+            const w = window.open('', '_blank', 'noopener');
+            const html = `<!doctype html><html><head><title>Print QR</title><style>body{display:flex;align-items:center;justify-content:center;height:100vh;margin:0;} .qr{padding:40px;background:#fff;border-radius:8px;}</style></head><body><div class="qr">${el.innerHTML}</div></body></html>`;
+            w.document.write(html);
+            w.document.close();
+            w.focus();
+            setTimeout(() => { w.print(); }, 400);
+        }
+
+        // Download helper: try to find img inside QR container and download its src; if not, open print window as fallback
+        function downloadKioskQRCode() {
+            const el = document.getElementById('kiosk-qr-container');
+            if (!el) return alert('QR not available');
+            const img = el.querySelector('img');
+            if (img && img.src) {
+                const a = document.createElement('a');
+                a.href = img.src;
+                a.download = 'nissan-casting-qr.png';
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+                return;
+            }
+            // fallback: open the print window so user can save as PDF
+            printKioskQRCode();
+        }
+
+        document.getElementById('checkin-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            // Get form values
+            const name = document.getElementById('inp-name').value.trim();
+            const rego = document.getElementById('inp-rego').value.trim().toUpperCase();
+            const company = document.getElementById('inp-company').value.trim();
+            const dept = document.getElementById('inp-dept').value.trim();
+
+            // Validate
+            let hasError = false;
+            const fields = { name, company, dept };
+            for (const [key, value] of Object.entries(fields)) {
+                const errEl = document.getElementById(`err-${key}`);
+                if (errEl) {
+                    if (!value) {
+                        errEl.textContent = 'This field is required';
+                        errEl.classList.add('show');
+                        hasError = true;
+                    } else {
+                        errEl.classList.remove('show');
+                    }
+                }
+            }
+
+            if (hasError) return;
+
+            // Create visitor record
+            const now = new Date();
+            const visitor = {
+                id: Math.random().toString(36).slice(2, 9) + Date.now().toString(36),
+                rego: rego,
+                name: name,
+                company: company,
+                dept: dept,
+                entryTimestamp: now.toISOString(),
+                exitTimestamp: null,
+                createdBy: 'SELF-CHECKIN'
+            };
+
+            // Try posting to backend first; on failure, fallback to localStorage queue.
+            postToBackend(visitor).then(data => {
+                // backend accepted — proceed to greeting
+                console.log('Posted to backend', data);
+                showToastLocal('Check-in recorded (server).');
+            }).catch(err => {
+                console.warn('Backend post failed — falling back to localStorage', err);
+                try {
+                    let checkIns = JSON.parse(localStorage.getItem('pendingCheckIns') || '[]');
+                    checkIns.push(visitor);
+                    localStorage.setItem('pendingCheckIns', JSON.stringify(checkIns));
+                    showToastLocal('Check-in queued (offline).');
+                } catch (e) { console.error('Failed to store check-in:', e); }
+            });
+
+            // Show greeting screen
+            document.getElementById('form-screen').classList.add('hidden');
+            document.getElementById('greeting-screen').classList.remove('hidden');
+            document.getElementById('greeting-name').textContent = name;
+            document.getElementById('entry-time').textContent = now.toLocaleTimeString('en-AU', { hour: '2-digit', minute: '2-digit' });
+            document.getElementById('entry-rego').textContent = rego || '(not provided)';
+            document.getElementById('entry-dept').textContent = dept;
+            document.getElementById('entry-company').textContent = company;
+
+            // show a Done button to return to kiosk (if desired)
+            const doneBtn = document.getElementById('greeting-done');
+            if (doneBtn) {
+                doneBtn.addEventListener('click', () => {
+                    // if original was opened in kiosk mode we return to kiosk; otherwise show form reset
+                    window.location.href = baseUrl + '?kiosk=1';
+                });
+            }
+
+            // NO AUTO-REDIRECT - Visitor stays on greeting page
+        });
+
+        // Minimal toast for this standalone page
+        function showToastLocal(msg) {
+            // create ephemeral toast
+            const t = document.createElement('div');
+            t.textContent = msg;
+            t.style.position = 'fixed'; t.style.bottom = '20px'; t.style.left = '50%'; t.style.transform = 'translateX(-50%)';
+            t.style.background = '#111827'; t.style.color = '#fff'; t.style.padding = '10px 16px'; t.style.borderRadius = '8px'; t.style.zIndex = 9999; t.style.opacity = '0';
+            document.body.appendChild(t);
+            requestAnimationFrame(() => { t.style.transition = 'all 0.25s'; t.style.opacity = '1'; t.style.transform = 'translateX(-50%) translateY(0)'; });
+            setTimeout(() => { t.style.opacity = '0'; t.style.transform = 'translateX(-50%) translateY(8px)'; setTimeout(() => t.remove(), 250); }, 3000);
+        }
+    </script>
+
+</body>
+
+</html>
