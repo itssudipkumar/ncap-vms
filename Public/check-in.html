@@ -294,6 +294,28 @@
             border-color: var(--accent);
         }
 
+        /* Go Back button (kiosk) */
+        .btn-goBack {
+            background: transparent;
+            color: var(--text2);
+            border: 0.5px solid var(--border);
+            border-radius: 8px;
+            padding: 10px 14px;
+            font-family: var(--font);
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.16s ease;
+            box-shadow: none;
+        }
+
+        .btn-goBack:hover {
+            background: var(--blue-50);
+            color: var(--text);
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
         .error-msg {
             color: #DC2626;
             font-size: 11px;
@@ -465,6 +487,7 @@
             <div style="margin-top:12px; display:flex; gap:10px; justify-content:center;">
                 <button class="btn-submit" onclick="printKioskQRCode()">Print QR</button>
                 <button class="btn-reset" onclick="downloadKioskQRCode()">Download QR</button>
+                <button class="btn-goBack" onclick="goBack()">Go Back</button>
             </div>
         </div>
     </div>
@@ -655,6 +678,20 @@
             }
             // fallback: open the print window so user can save as PDF
             printKioskQRCode();
+        }
+
+        // Go back to main dashboard (index.html). If opened from the app window, update opener and close.
+        function goBack() {
+            try {
+                const target = 'index.html';
+                if (window.opener && !window.opener.closed) {
+                    window.opener.location.href = target;
+                    window.close();
+                    return;
+                }
+            } catch (e) { /* ignore */ }
+            // fallback: navigate this window to index
+            window.location.href = 'index.html';
         }
 
         document.getElementById('checkin-form').addEventListener('submit', function (e) {

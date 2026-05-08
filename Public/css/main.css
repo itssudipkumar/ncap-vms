@@ -261,6 +261,60 @@ body {
     box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
 }
 
+/* Admin toggles */
+#toggle-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px 4px 6px 4px;
+}
+
+.toggle-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(180deg,#fff,#fbfdff);
+    border: 0.5px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 14px;
+    box-shadow: 0 6px 18px rgba(16,24,40,0.04);
+}
+
+.toggle-row > div:first-child { flex: 1; margin-right: 12px; }
+
+.toggle-lbl { font-size: 14px; font-weight:700; color:var(--header); margin-bottom:4px; }
+.toggle-sub { font-size:12px; color:var(--text3); }
+
+.toggle {
+    width: 52px;
+    height: 30px;
+    border-radius: 999px;
+    background: var(--border);
+    position: relative;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: background 0.18s ease;
+}
+.toggle::after {
+    content: '';
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 22px;
+    height: 22px;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 6px 16px rgba(16,24,40,0.12);
+    transition: transform 0.18s ease;
+}
+.toggle.on { background: linear-gradient(90deg,var(--accent),var(--accent-h)); }
+.toggle.on::after { transform: translateX(22px); }
+
+@media (max-width: 640px) {
+    .toggle-row { padding: 10px; }
+    .toggle-lbl { font-size: 13px; }
+}
+
 .login-userid {
     text-align: center;
     text-transform: uppercase;
@@ -1053,8 +1107,6 @@ body {
 }
 
 .vplate-vic {
-    width: 6px;
-    background: #1D4ED8;
     border-radius: 1px;
     flex-shrink: 0;
     align-self: stretch;
