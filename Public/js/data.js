@@ -4,6 +4,7 @@ let USERS = [
   { id: 'ADM-001', name: 'R. Matsuda', pass: '1234', role: 'admin' },
   { id: 'STF-042', name: 'J. Barker', pass: '5678', role: 'staff' },
   { id: 'TF40', name: 'TechnoForty', pass: '1351', role: 'admin' },
+  { id: 'ASHWIN', name: 'Ashwin Shrestha', pass: '0011', role: 'admin' },
 ];
 
 /* Feature flags */
